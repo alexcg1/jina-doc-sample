@@ -1,12 +1,12 @@
 ### Common design patterns
 Jina is a really flexible AI-powered neural search framework. It is designed for building neural search applications, or neural search apps for short.
 
-Neural search apps that use Jina tend to converge around certain logical arrangements of `[Executors](https://docs.jina.ai/api/jina.executors.html)` in their workflow design. This is because organizing predefined steps into logical groups is a common need in many search workflows. Some of these logical arrangements, or design patterns, are highlighted below.
+Neural search apps that use Jina tend to converge around certain logical arrangements of [`Executors`](https://docs.jina.ai/api/jina.executors.html) in their workflow design. This is because organizing predefined steps into logical groups is a common need in many search workflows. Some of these logical arrangements, or design patterns, are highlighted below.
 
 
 #### CompoundIndexer (Vector + KV Indexers)
 
-When building neural search apps, it useful to use a `[CompoundIndexer](https://docs.jina.ai/api/jina.executors.indexers.html#jina.executors.indexers.CompoundIndexer)` in the same `Pod` for both `index` and `query` flows.
+When building neural search apps, it useful to use a [`CompoundIndexer`](https://docs.jina.ai/api/jina.executors.indexers.html#jina.executors.indexers.CompoundIndexer) in the same `Pod` for both `index` and `query` flows.
 The following `yaml` file shows an example of this pattern.
 
 ```
