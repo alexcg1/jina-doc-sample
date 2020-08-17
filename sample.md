@@ -27,7 +27,7 @@ metas:
   name: complete indexer
 ```
 
-This chain of two `indexer`s will behave like a single `indexer` and will allow clients to seamlessly `query` the index with the `embedding` vector coming from any upstream `encoder` and obtain in the response message of the pod the corresponding `binary` information stored in
-the key-value index. This lets the `VectorIndexer` be responsible for obtaining the most relevant documents by finding similarities
-in the `embedding` space while targeting the `key-value` database to extract the meaningful data and fields from those relevant documents.
+There are two `indexer`s specified above: a [`NumpyIndexer`](https://docs.jina.ai/api/jina.executors.indexers.vector.numpy.html#jina.executors.indexers.vector.numpy.NumpyIndexer) and a [`BinaryPbIndexer`](https://docs.jina.ai/api/jina.executors.indexers.keyvalue.proto.html#jina.executors.indexers.keyvalue.proto.BinaryPbIndexer). Although are logically grouped under a `CompoundIndexer`, they will behave like a single `indexer`. 
+
+Clients will be able to seamlessly `query` the index with the `embedding` vector coming from any upstream `encoder` and obtain in the response message of the Pod the corresponding `binary` information stored in the key-value index. Because all instances of `NumpyIndexer` are derived from a `VectorIndexer`, the `NumpyIndexer` named `vecIndexer` in our example will be responsible for obtaining the most relevant documents by finding similarities in the `embedding` space while targeting the key-value database to extract meaningful data and fields from relevant documents.
 
