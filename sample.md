@@ -1,13 +1,13 @@
-### Common designs patterns
-jina is a really flexible AI powered neural search frameworks. It is designed to enable any pattern that can be framed as  
-a neural search problem.
-However, there are basic basic common patterns that show when developping search solutions with jina and here is a recopilation of some of them below for your detailed reference when building a neural search with JINA.
-<\p>
+### Common design patterns
+Jina is a really flexible AI-powered neural search framework. It is designed for building neural search applications, or neural search apps for short.
 
-- CompoundIndexer (Vector + KV Indexers):
+Neural search apps that use Jina tend to converge around certain logical arrangements of [`Executors`](https://docs.jina.ai/api/jina.executors.html) in their workflow design. This is because organizing predefined steps into logical groups is a common need in many search workflows. Some of these logical arrangements, or design patterns, are highlighted below.
 
-To develop neural search applications, it is of useful to use a `CompoundIndexer` in same `Pod` for both `index` and `query` flows.
-The following `json` file shows an examples of this pattern.
+
+#### CompoundIndexer (Vector + KV Indexers)
+
+When building neural search apps, it useful to use a [`CompoundIndexer`](https://docs.jina.ai/api/jina.executors.indexers.html#jina.executors.indexers.CompoundIndexer) in the same `Pod` for both `index` and `query` flows.
+The following `yaml` file shows an example of this pattern.
 
 ```
 !CompoundIndexer
@@ -25,10 +25,11 @@ components:
       name: kvIndexer  # a customized name
 metas:
   name: complete indexer
-`
+```
 
-This type of constructon will acts as an single `indexer` and will allow to seamlessly `query` this index with the `embedding` vector coming
-from any upstream `encoder` and obtain in the response message of the pod the corresponding `binary` information stored in
-the key-value index. This lets the `VectorIndexer` be responsible for obtain the most relevant documents by finding similarities
-in the `embedding` space while targeting the `key-value` database to extract the meaningful data and fields from those relevant documents.
+Our example uses two types of `indexers`: a [`NumpyIndexer`](https://docs.jina.ai/api/jina.executors.indexers.vector.numpy.html#jina.executors.indexers.vector.numpy.NumpyIndexer) and a [`BinaryPbIndexer`](https://docs.jina.ai/api/jina.executors.indexers.keyvalue.proto.html#jina.executors.indexers.keyvalue.proto.BinaryPbIndexer). Although they are logically grouped under a `CompoundIndexer`, the two `indexers` will behave as if they were a single `indexer`. 
+
+Because all instances of `NumpyIndexer` are derived from a `VectorIndexer`, the `NumpyIndexer` named `vecIndexer` above will allow clients to to seamlessly `query` the index with the `embedding` vector coming from any upstream `encoder`, while the `BinaryPbIndexer` named `kvIndexer` will allow clients to obtain the corresponding `binary` information stored in the key-value index in the response message from the Pod. 
+
+In other words, `CompoundIndexer` will be responsible for obtaining the most relevant documents by finding similarities in the `embedding` space while also targeting the `key-value` index to extract meaningful data and fields from relevant documents.
 
