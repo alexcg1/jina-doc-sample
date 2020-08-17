@@ -27,7 +27,9 @@ metas:
   name: complete indexer
 ```
 
-There are two `indexer`s specified above: a [`NumpyIndexer`](https://docs.jina.ai/api/jina.executors.indexers.vector.numpy.html#jina.executors.indexers.vector.numpy.NumpyIndexer) and a [`BinaryPbIndexer`](https://docs.jina.ai/api/jina.executors.indexers.keyvalue.proto.html#jina.executors.indexers.keyvalue.proto.BinaryPbIndexer). Although they are logically grouped under a `CompoundIndexer`, they will behave like a single `indexer`. 
+Our example uses two types of `indexer`s: a [`NumpyIndexer`](https://docs.jina.ai/api/jina.executors.indexers.vector.numpy.html#jina.executors.indexers.vector.numpy.NumpyIndexer) and a [`BinaryPbIndexer`](https://docs.jina.ai/api/jina.executors.indexers.keyvalue.proto.html#jina.executors.indexers.keyvalue.proto.BinaryPbIndexer). Although they are logically grouped under a `CompoundIndexer`, they will behave like a single `indexer`. 
 
-Because all instances of `NumpyIndexer` are derived from a `VectorIndexer`, the `NumpyIndexer` named `vecIndexer` in our example will allow clients to to seamlessly `query` the index with the `embedding` vector coming from any upstream `encoder`, while the `indexer` named `kvIndexer` will allow clients to obtain the corresponding `binary` information stored in the key-value index in the response message from the Pod. In other words, `CompoundIndexer` will be responsible for obtaining the most relevant documents by finding similarities in the `embedding` space while targeting the key-value database to extract meaningful data and fields from relevant documents.
+Because all instances of `NumpyIndexer` are derived from a `VectorIndexer`, the `NumpyIndexer` named `vecIndexer` above will allow clients to to seamlessly `query` the index with the `embedding` vector coming from any upstream `encoder`, while the `BinaryPbIndexer` named `kvIndexer` will allow clients to obtain the corresponding `binary` information stored in the key-value index in the response message from the Pod. 
+
+In other words, `CompoundIndexer` will be responsible for obtaining the most relevant documents by finding similarities in the `embedding` space while targeting the key-value database to extract meaningful data and fields from relevant documents.
 
