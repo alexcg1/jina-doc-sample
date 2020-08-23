@@ -3,7 +3,7 @@ Jina is a flexible, AI-powered, neural search framework. By design, Jina can ena
 a neural search problem. However, certain patterns have emerged as best practices when developing search solutions with Jina. 
 Below, you will find a select few for your detailed reference when building a neural search with Jina.
 
-- CompoundIndexer `(Vector + KV Indexers)`:
+- `CompoundIndexer` (Vector + KV Indexers):
 
 To develop neural search applications, it is useful to use a `CompoundIndexer` in the same `Pod` for both `index` and `query` flows.
 The following `YAML` file shows an example of this pattern:
