@@ -25,7 +25,7 @@ components:
       name: kvIndexer  # a customized name
 metas:
   name: complete indexer
-`
+```
 
 This type of constructon will acts as an single `indexer` and will allow to seamlessly `query` this index with the `embedding` vector coming
 from any upstream `encoder` and obtain in the response message of the pod the corresponding `binary` information stored in
