@@ -1,13 +1,8 @@
-### Common designs patterns
-jina is a really flexible AI powered neural search frameworks. It is designed to enable any pattern that can be framed as  
-a neural search problem.
-However, there are basic basic common patterns that show when developping search solutions with jina and here is a recopilation of some of them below for your detailed reference when building a neural search with JINA.
-<\p>
+# Common Design Patterns
+Jina is an exceptionally flexible AI-powered neural search framework designed to enable any pattern which can be framed as a neural search problem. However, common patterns occur when designing search solutions with Jina: 
 
-- CompoundIndexer (Vector + KV Indexers):
-
-To develop neural search applications, it is of useful to use a `CompoundIndexer` in same `Pod` for both `index` and `query` flows.
-The following `json` file shows an examples of this pattern.
+## CompoundIndexer (Vector + KV Indexers):  
+Using a `CompoundIndexer` in the same Pod for both index and query Flows, as seen in the YAML file below, facilitates the development of neural search applications. 
 
 ```
 !CompoundIndexer
@@ -25,10 +20,14 @@ components:
       name: kvIndexer  # a customized name
 metas:
   name: complete indexer
-`
+```
 
-This type of constructon will acts as an single `indexer` and will allow to seamlessly `query` this index with the `embedding` vector coming
-from any upstream `encoder` and obtain in the response message of the pod the corresponding `binary` information stored in
-the key-value index. This lets the `VectorIndexer` be responsible for obtain the most relevant documents by finding similarities
-in the `embedding` space while targeting the `key-value` database to extract the meaningful data and fields from those relevant documents.
+The YAML file above creates a Flow which:
+    
+- Functions as a single indexer
+- Empowers users to smoothly query the index with the embedding vector from any upstream encoder  
+- Provides the binary information in the key-value index in the Pod's response message  
 
+The `VectorIndexer`:
+- Collects the most relevant Documents by identifying similarities in the embedding space 
+- Targets the key-value database to extract meaningful data from the Documents
